@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: clinic_mongodb
+    ports:
+      - "27018g:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - clinic_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: clinic_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/clinicdb
+      - PORT=5000
+      - JWT_SECRET=your_super_secret_jwt_key_change_in_production
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin123
+    depends_on:
+      - mongodb
+    networks:
+      - clinic_network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: clinic_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+    networks:
+      - clinic_network
+
+volumes:
+  mongo_data:
+
+networks:
+  clinic_network:
+    driver: bridge
