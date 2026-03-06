@@ -23,19 +23,19 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={navbar ${scrolled ? 'scrolled' : ''}}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-inner">
         <Link to="/" className="nav-logo">
           <FaTooth className="logo-icon" />
           <span>Dental<strong>Care</strong></span>
         </Link>
 
-        <ul className={nav-links ${menuOpen ? 'open' : ''}}>
+        <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
           {links.map(({ to, label }) => (
             <li key={to}>
               <Link
                 to={to}
-                className={nav-link ${location.pathname === to ? 'active' : ''} ${label === 'Book Now' ? 'nav-cta' : ''}}
+                className={`nav-link ${location.pathname === to ? 'active' : ''} ${label === 'Book Now' ? 'nav-cta' : ''}`}
               >
                 {label}
               </Link>
