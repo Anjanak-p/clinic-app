@@ -23,19 +23,19 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    <nav className={navbar ${scrolled ? 'scrolled' : ''}}>
       <div className="container nav-inner">
         <Link to="/" className="nav-logo">
           <FaTooth className="logo-icon" />
           <span>Dental<strong>Care</strong></span>
         </Link>
 
-        <ul className={`nav-links ${menuOpen ? 'open' : ''}`}>
+        <ul className={nav-links ${menuOpen ? 'open' : ''}}>
           {links.map(({ to, label }) => (
             <li key={to}>
               <Link
                 to={to}
-                className={`nav-link ${location.pathname === to ? 'active' : ''} ${label === 'Book Now' ? 'nav-cta' : ''}`}
+                className={nav-link ${location.pathname === to ? 'active' : ''} ${label === 'Book Now' ? 'nav-cta' : ''}}
               >
                 {label}
               </Link>
@@ -105,9 +105,6 @@ export default function Navbar() {
           color: white !important;
           font-weight: 600;
         }
-        .nav-cta.active {
-          color: var(--text-mid) !important;
-        }
         .nav-cta:hover {
           background: var(--teal-light) !important;
           color: white !important;
@@ -121,43 +118,23 @@ export default function Navbar() {
           font-size: 1.4rem;
           color: var(--charcoal);
           cursor: pointer;
-  position: relative;
-  z-index: 2000;
         }
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 0; /* below navbar */
-    left: 0;
-    right: 0;
-    
-
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-
-    background: white;
-    padding: 30px 0;
-
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-
-    transform: translateY(-120%);
-    transition: transform 0.35s ease;
-  }
-
-  .nav-links.open {
-    transform: translateY(0);
-  }
-
-  .nav-link {
-    font-size: 1.1rem;
-    padding: 10px 20px;
-  }
-}
+        @media (max-width: 768px) {
+          .menu-toggle { display: block; }
+          .nav-links {
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 280px;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+            box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+          }
+          .nav-links.open { transform: translateX(0); }
+          .nav-link { font-size: 1.1rem; padding: 12px 28px; }
+        }
       `}</style>
     </nav>
   );
