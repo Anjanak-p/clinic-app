@@ -28,7 +28,7 @@ A full-stack dental clinic management application built with React, Node.js, Exp
 ## Project Structure
 
 ```
-C:.
+Clinic:.
 │   .gitignore
 │   docker-compose.yml
 │
