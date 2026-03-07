@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 dotenv.config();
+const authMiddleware = require('../middleware/auth');
 
 // POST /api/auth/login
 router.post('/login', async (req, res) => {
