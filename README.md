@@ -242,6 +242,7 @@ Navigate to: http://localhost:3000/admin/login
 3. **Date validation**: Appointments cannot be booked in the past (client-side). Time slot management (double-booking prevention) is not implemented.
 4. **No email notifications**: Appointment confirmation emails are not sent. Toast notifications are used instead.
 5. **No real-time updates**: The admin dashboard requires a manual refresh to see new appointments.
+6. **The doctors and services data were seeded into the database using the `seed.js` file because the task requirements did not include POST APIs for creating doctors and services in the backend, and the frontend requirements also did not mention functionality for adding them.**
 
 ---
 
