@@ -29,19 +29,22 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// POST /api/auth/verify
-router.post('/verify', (req, res) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) return res.status(401).json({ success: false, error: 'No token provided' });
-
+router.post('/verify', authMiddleware, async (req, res) => {
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
-    res.json({ success: true, user: decoded });
-  } catch {
-    res.status(401).json({ success: false, error: 'Invalid token' });
+    res.json({
+      success: true,
+      user: {
+        username: req.user.username,
+        role: req.user.role
+      }
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: err.message
+    });
   }
 });
 
 module.exports = router;
+ 

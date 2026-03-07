@@ -8,12 +8,28 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('clinic_token');
-    const storedUser = localStorage.getItem('clinic_user');
-    if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
+    const initAuth = async () => {
+      const token = localStorage.getItem('clinic_token');
+
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const res = await authAPI.verify();
+
+        setUser(res.data.user);
+      } catch (err) {
+        localStorage.removeItem('clinic_token');
+        localStorage.removeItem('clinic_user');
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
   }, []);
 
   const login = async (username, password) => {
